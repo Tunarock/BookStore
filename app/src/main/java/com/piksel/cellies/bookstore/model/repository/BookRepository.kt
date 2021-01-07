@@ -1,36 +1,25 @@
 package com.piksel.cellies.bookstore.model.repository
 
-import android.content.res.Resources
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.piksel.cellies.bookstore.model.Book
-import com.piksel.cellies.bookstore.model.data.bookList
+import com.example.rickandmorty.data.local.BookDao
+import com.piksel.cellies.bookstore.network.BookStoreDataSource
+import com.piksel.cellies.bookstore.utils.performGetOperation
+import javax.inject.Inject
 
-class BookRepository(resources: Resources) {
+class BookRepository @Inject constructor(
+    private val remoteDataSource: BookStoreDataSource,
+    private val localDataSource: BookDao
+) {
 
-    //loading temporary static data set
-    private val initialBookList = bookList(resources)
-    private val booksLiveData = MutableLiveData(initialBookList)
+    fun getBook(isbn: String) =  performGetOperation(
+        databaseQuery = { localDataSource.getBook(isbn) },
+        networkCall = { remoteDataSource.getBook(isbn) },
+        saveCallResult = { localDataSource.insert(it) }
+    )
 
-    fun getBookList(): LiveData<List<Book>> {
-        return booksLiveData
-    }
-
-    fun addBook(newBook: Book) {
-        TODO("Not yet implemented")
-    }
-
-    companion object {
-        private var INSTANCE: BookRepository? = null
-        fun getInstance(resources: Resources): BookRepository {
-            return synchronized(BookRepository::class){
-                val newInstance = INSTANCE ?: BookRepository(resources)
-                INSTANCE = newInstance
-                newInstance
-            }
-
-        }
-
-    }
+    fun getNewReleases() = performGetOperation(
+        databaseQuery = { localDataSource.getAllBooks() },
+        networkCall = { remoteDataSource.getNewRealeses() },
+        saveCallResult = { localDataSource.insertAll(it.books) }
+    )
 
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/charactersFragment">
+
+    <fragment
+        android:id="@+id/charactersFragment"
+        android:name="com.piksel.cellies.bookstore.view.ui.NewReleasesFragment"
+        android:label="New Releases"
+        tools:layout="@layout/new_releases_fragment" >
+        <action
+            android:id="@+id/action_newReleasesFragment_to_bookDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.piksel.cellies.bookstore.view.ui.BookDetailFragment"
+        android:label="Book Detail"
+        tools:layout="@layout/book_detail_fragment" />
+</navigation>
