@@ -61,6 +61,7 @@ class BookDetailFragment : Fragment() {
         binding.subtitle.text = book.subtitle
         binding.description.text = book.desc
         binding.authors.text = book.authors
+<<<<<<< HEAD
         binding.year.text = book.year
         binding.price.text = book.price
         Picasso
@@ -68,6 +69,12 @@ class BookDetailFragment : Fragment() {
                 .load(book.image)
                 .fit()
 //                .resize(50, 350)
+=======
+        Picasso
+                .get()
+                .load(book.image)
+                .resize(50, 150)
+>>>>>>> 2614ef1881d9f9294536b5ae7aca50233854ff37
                 .centerCrop()
                 .into(binding.image)
 
