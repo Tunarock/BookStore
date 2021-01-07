@@ -42,7 +42,6 @@ class BookViewHolder(private val itemBinding: ItemBookBinding, private val liste
         itemBinding.root.setOnClickListener(this)
     }
 
-    @SuppressLint("SetTextI18n")
     fun bind(item: Book) {
         this.book = item
         itemBinding.title.text = item.title
@@ -51,7 +50,7 @@ class BookViewHolder(private val itemBinding: ItemBookBinding, private val liste
         Picasso
             .get()
             .load(item.image)
-            .resize(50, 50)
+            .resize(75, 75)
             .centerCrop()
             .into(itemBinding.image)
     }
